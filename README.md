@@ -1,4 +1,6 @@
 # KaTalkEspresso
+![KaTalkEspresso](https://raw.githubusercontent.com/SD810/KaTalkEspresso/master/Docs/KatalkEspresso.png)
+
 카카오톡 광고 제거 프로그램. Real21c님의 코드를 참고해서 만들었습니다. https://github.com/real21c/kakao-noadv
 
 현재 친구 목록의 광고만 제거되며 팝업 광고는 제거되지 않습니다.
