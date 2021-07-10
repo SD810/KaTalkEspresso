@@ -22,7 +22,8 @@ namespace KaTalkEspresso
 
         // 카카오톡 클래스 이름
         private const string CLASSNAME_KAKAOTALK = "EVA_ChildWindow";
-        private const string CLASSNAME_KAKAOTALK_AD = "EVA_Window";
+        // private const string CLASSNAME_KAKAOTALK_AD = "EVA_Window";
+        private const string CLASSNAME_KAKAOTALK_AD = "BannerAdWnd";
         private static readonly string[] CLASSNAMES_ADS_STRINGS = {"FAKE_WND_REACHPOP" };
         // 카카오톡 창 제목 문자열
         private static readonly string[] TITLE_KAKAOTALK_STRINGS = { "KakaoTalk", "카카오톡", "カカオトーク" };
