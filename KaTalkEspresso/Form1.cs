@@ -16,8 +16,10 @@ namespace KaTalkEspresso
 {
     public partial class Form1 : Form
     {
-        //로그
-        private readonly Logger log = Logger.getInstance();
+		private static readonly string[] TITLE_KAKAOTALK_STRINGS = { "KakaoTalk", "카카오톡", "カカオトーク" };
+
+		//로그
+		private readonly Logger log = Logger.getInstance();
 
         //카카오톡 경로
         private string predefinedKaTalkPath = null;
@@ -130,12 +132,31 @@ namespace KaTalkEspresso
             }
             katalkExeStr = katalkExeStr.Substring(0, lastExeFound);
 
-            //카톡 exe 이름은 소문자로 바꾸고 이걸 비교에 사용
-            katalkExeStr = katalkExeStr.ToLower();
-
             // 이 경로로 된 프로세스가 있는지 찾기 위해 프로세스 목록 수집.
             Process[] procs = Process.GetProcesses();
 
+
+			// 카카오톡 친구목록 윈도우를 가져오기 위해 다른 채팅방을 닫는 작업
+			foreach (Process proc in procs)
+			{
+				if (proc.ProcessName.Equals(katalkExeStr)) // 카카오톡 프로세스를 찾는다
+				{
+					if (TITLE_KAKAOTALK_STRINGS.Contains(proc.MainWindowTitle))
+					{
+						break; // 카카오톡 메인 페이지를 찾으면 반복문 중단
+					}
+					else // 프로세스에 해당하는 윈도우를 찾았으나, 친구 목록 윈도우가 아님
+					{
+						log.info("close subWindow : " + proc.MainWindowTitle);
+						proc.CloseMainWindow();
+						procs = Process.GetProcesses(); // 윈도우를 닫고 프로세스 목록을 다시 읽어옴
+					}
+				}
+			}
+
+
+			//카톡 exe 이름은 소문자로 바꾸고 이걸 비교에 사용
+			katalkExeStr = katalkExeStr.ToLower();
 
             log.info("Checking for running " + procs.Length + " processes to pinpoint target executable.");
             foreach (Process proc in procs)
